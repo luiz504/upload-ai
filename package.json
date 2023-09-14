@@ -4,10 +4,14 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
     "eslint": "^8.48.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
     "tsconfig": "*",
     "turbo": "latest"
