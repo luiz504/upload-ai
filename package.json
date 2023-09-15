@@ -1,5 +1,10 @@
 {
+  "name": "upload-ai",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -16,10 +21,5 @@
     "tsconfig": "*",
     "turbo": "latest"
   },
-  "name": "upload-ai",
-  "packageManager": "npm@9.7.1",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "packageManager": "npm@9.7.1"
 }
