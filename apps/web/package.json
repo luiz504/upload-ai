@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@upload-ai/web",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.19",
-    "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "autoprefixer": "^10.4.15",
@@ -36,7 +35,6 @@
     "husky": "^8.0.3",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
-    "tsconfig": "*",
-    "typescript": "^4.5.3"
+    "tsconfig": "*"
   }
 }

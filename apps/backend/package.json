@@ -1,0 +1,18 @@
+{
+  "name": "@upload-ai/backend",
+  "version": "1.0.0",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "test": "test"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.3.1",
+    "fastify": "^4.23.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.3.1",
+    "tsx": "^3.12.10",
+    "tsconfig": "*"
+  }
+}
