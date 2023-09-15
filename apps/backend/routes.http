@@ -1,0 +1,7 @@
+# @name get-propts
+GET http://localhost:3333/prompts
+
+###
+
+# @name get-propts
+GET http://localhost:3333/prompts
