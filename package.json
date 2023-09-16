@@ -23,5 +23,8 @@
     "turbo": "latest",
     "typescript": "^5.2.2"
   },
-  "packageManager": "npm@9.7.1"
+  "packageManager": "npm@9.7.1",
+  "dependencies": {
+    "@fastify/multipart": "^7.7.3"
+  }
 }
