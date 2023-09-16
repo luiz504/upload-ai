@@ -4,28 +4,30 @@ import { createReadStream } from 'node:fs'
 
 import { prisma } from '~/lib/prisma'
 import { openAI } from '~/lib/openai'
-export async function createTranscription(app: FastifyInstance) {
+export async function createTranscriptionRoute(app: FastifyInstance) {
   app.post('/videos/:videoId/transcription', async (request, reply) => {
-    const paramsSchema = z.object({
-      videoId: z.string().uuid(),
-    })
-    const paramsValidation = paramsSchema.safeParse(request.params)
+    const schemas = {
+      params: z.object({
+        videoId: z.string().uuid(),
+      }),
+      body: z.object({
+        prompt: z.string(),
+      }),
+    }
+
+    const paramsValidation = schemas.params.safeParse(request.params)
 
     if (!paramsValidation.success) {
       return reply.status(400).send({ error: 'Video id is not valid' })
     }
 
-    const { videoId } = paramsValidation.data
-
-    const bodySchema = z.object({
-      prompt: z.string(),
-    })
-
-    const bodyValidation = bodySchema.safeParse(request.body)
+    const bodyValidation = schemas.body.safeParse(request.body)
 
     if (!bodyValidation.success) {
       return reply.status(400).send({ error: 'Prompt string isRequired.' })
     }
+
+    const { videoId } = paramsValidation.data
     const { prompt } = bodyValidation.data
 
     const video = await prisma.video.findFirstOrThrow({
