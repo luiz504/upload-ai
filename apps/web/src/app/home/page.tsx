@@ -1,17 +1,13 @@
+import { Wand2 } from 'lucide-react'
+
 import { Textarea } from '~/components/ui/textarea'
-import { Header } from './components/Header'
-import { FileVideo, Upload, Wand2 } from 'lucide-react'
+import { Header } from './components/header'
 import { Separator } from '~/components/ui/separator'
 import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '~/components/ui/select'
+import * as Slt from '~/components/ui/select'
 import { Slider } from '~/components/ui/slider'
+import { VideoInputForm } from './components/video-input-form'
 
 const Home = () => {
   return (
@@ -42,36 +38,7 @@ const Home = () => {
         </div>
 
         <aside className="w-80 space-y-6">
-          <form className="space-y-6">
-            <label
-              className="flex flex-col items-center justify-center border border-dashed rounded-md aspect-video cursor-pointer text-sm gap-2 text-muted-foreground hover:bg-primary/5"
-              htmlFor="video"
-            >
-              <FileVideo className="w-4 h-4" />
-              Select a Video
-            </label>
-            <input
-              className="sr-only"
-              type="file"
-              id="video"
-              accept="video/mp4"
-            />
-
-            <Separator />
-
-            <div className="space-y-2">
-              <Label htmlFor="transcription_prompt">Transcription prompt</Label>
-              <Textarea
-                className="h-20 leading-relaxed resize-none"
-                id="transcription_prompt"
-                placeholder="Include key words mentioned in the video separated by comma (,)"
-              />
-            </div>
-
-            <Button type="submit" className="gap-2 w-full">
-              Upload Video <Upload className="w-4 h-4" />
-            </Button>
-          </form>
+          <VideoInputForm />
 
           <Separator />
 
@@ -79,18 +46,18 @@ const Home = () => {
             <div className="space-y-4">
               <Label>Prompt</Label>
 
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a prompt..." />
-                </SelectTrigger>
+              <Slt.Select>
+                <Slt.SelectTrigger>
+                  <Slt.SelectValue placeholder="Select a prompt..." />
+                </Slt.SelectTrigger>
 
-                <SelectContent>
-                  <SelectItem value="title">Youtube Title</SelectItem>
-                  <SelectItem value="description">
+                <Slt.SelectContent>
+                  <Slt.SelectItem value="title">Youtube Title</Slt.SelectItem>
+                  <Slt.SelectItem value="description">
                     Youtube Description
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+                  </Slt.SelectItem>
+                </Slt.SelectContent>
+              </Slt.Select>
 
               <span className="block text-xs text-muted-foreground italic">
                 You will be able to customize this option soon...
@@ -101,15 +68,17 @@ const Home = () => {
             <div className="space-y-4">
               <Label>Model</Label>
 
-              <Select disabled defaultValue="gpt3.5">
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
+              <Slt.Select disabled defaultValue="gpt3.5">
+                <Slt.SelectTrigger>
+                  <Slt.SelectValue />
+                </Slt.SelectTrigger>
 
-                <SelectContent>
-                  <SelectItem value="gpt3.5">GPT 3.5-turbo 16k</SelectItem>
-                </SelectContent>
-              </Select>
+                <Slt.SelectContent>
+                  <Slt.SelectItem value="gpt3.5">
+                    GPT 3.5-turbo 16k
+                  </Slt.SelectItem>
+                </Slt.SelectContent>
+              </Slt.Select>
 
               <span className="block text-xs text-muted-foreground italic">
                 You will be able to customize this option soon...
