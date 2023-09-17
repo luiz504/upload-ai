@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { fetchFile } from '@ffmpeg/util'
-import { getFFmpeg } from '~/app/libs/ffmpeg'
+import { getFFmpeg } from '~/libs/ffmpeg'
 
 export async function convertMP4ToMP3(videoFile: File) {
   console.log('convert Started', videoFile.type)

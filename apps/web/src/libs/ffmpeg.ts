@@ -24,10 +24,10 @@ export async function getFFmpeg() {
           `${baseURL}/ffmpeg-core.wasm`,
           'application/wasm',
         ),
-        workerURL: await toBlobURL(
-          `${baseURL}/ffmpeg-worker.js`,
-          'text/javascript',
-        ),
+        // workerURL: await toBlobURL(
+        //   `${baseURL}/ffmpeg-worker.js`,
+        //   'text/javascript',
+        // ),
       })
     } catch (error) {
       console.error('FFmpeg Load Error 😣: ', error) //eslint-disable-line

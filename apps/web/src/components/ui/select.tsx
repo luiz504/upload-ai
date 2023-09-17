@@ -108,6 +108,24 @@ const SelectSeparator = React.forwardRef<
 ))
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
+const SelectFeedback = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ children, className, ...props }, ref) => (
+  <SelectPrimitive.Separator
+    ref={ref}
+    className={cn(
+      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none text-muted-foreground',
+      className,
+    )}
+    {...props}
+  >
+    {children}
+  </SelectPrimitive.Separator>
+))
+
+SelectFeedback.displayName = 'SelectFeedback'
+
 export {
   Select,
   SelectGroup,
@@ -117,4 +135,5 @@ export {
   SelectLabel,
   SelectItem,
   SelectSeparator,
+  SelectFeedback,
 }

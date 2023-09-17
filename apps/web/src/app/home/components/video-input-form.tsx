@@ -7,10 +7,28 @@ import { Label } from '~/components/ui/label'
 import { Separator } from '~/components/ui/separator'
 import { Textarea } from '~/components/ui/textarea'
 import { convertMP4ToMP3 } from '~/utils/convertMP4ToMP3'
+import { api } from '~/libs/axios'
 
-export const VideoInputForm: FC = () => {
-  const [videoFile, setVideoFile] = useState<File | null>(null)
+type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success'
+
+const statusMessages: Omit<Record<Status, string>, 'waiting'> = {
+  converting: 'Converting...',
+  uploading: 'Uploading...',
+  generating: 'Generating Transcriptions...',
+  success: 'Uploaded!',
+}
+
+type VideoInputFormProps = {
+  onVideoUploaded: (videoId: string | null) => void
+}
+
+export const VideoInputForm: FC<VideoInputFormProps> = ({
+  onVideoUploaded,
+}) => {
   const promptInputRef = useRef<HTMLTextAreaElement>(null)
+
+  const [videoFile, setVideoFile] = useState<File | null>(null)
+  const [status, setStatus] = useState<Status>('waiting')
 
   const handleFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.currentTarget
@@ -35,12 +53,31 @@ export const VideoInputForm: FC = () => {
 
     if (!videoFile) return
 
-    const audioFile = await convertMP4ToMP3(videoFile)
+    try {
+      setStatus('converting')
+      const audioFile = await convertMP4ToMP3(videoFile)
 
-    console.log('Audio File', { audioFile, prompt }) //eslint-disable-line 
+      const data = new FormData()
+      data.append('file', audioFile)
 
-    // convert the video to audio
+      setStatus('uploading')
+      const response = await api.post('/videos', data)
+
+      const videoId = response.data.video.id
+      setStatus('generating')
+      await api.post(`/videos/${videoId}/transcription`, {
+        prompt,
+      })
+      setStatus('success')
+      onVideoUploaded(videoId)
+    } catch (error) {
+      setStatus('waiting')
+
+      console.error('err', error)//eslint-disable-line
+    }
   }
+
+  const interactionDisabled = status !== 'waiting'
 
   return (
     <form className="space-y-6" onSubmit={handleUploadVideo}>
@@ -68,6 +105,7 @@ export const VideoInputForm: FC = () => {
         id="video"
         accept="video/mp4"
         onChange={handleFileSelected}
+        disabled={interactionDisabled}
       />
 
       <Separator />
@@ -76,15 +114,27 @@ export const VideoInputForm: FC = () => {
         <Label htmlFor="transcription_prompt">Transcription prompt</Label>
 
         <Textarea
-          ref={promptInputRef}
           className="h-20 leading-relaxed resize-none"
+          ref={promptInputRef}
           id="transcription_prompt"
           placeholder="Include key words mentioned in the video separated by comma (,)"
+          disabled={interactionDisabled}
         />
       </div>
 
-      <Button type="submit" className="gap-2 w-full">
-        Upload Video <Upload className="w-4 h-4" />
+      <Button
+        data-success={status === 'success'}
+        className="gap-2 w-full data-[success=true]:bg-emerald-700"
+        type="submit"
+        disabled={interactionDisabled}
+      >
+        {status === 'waiting' ? (
+          <>
+            Upload Video <Upload className="w-4 h-4" />
+          </>
+        ) : (
+          statusMessages[status]
+        )}
       </Button>
     </form>
   )
