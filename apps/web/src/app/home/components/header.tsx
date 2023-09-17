@@ -1,9 +1,7 @@
-import { Github } from 'lucide-react'
 import { FC } from 'react'
+import { Github } from 'lucide-react'
 import { Button } from '~/components/ui/button'
 import { Separator } from '~/components/ui/separator'
-
-// import { Container } from './styles';
 
 export const Header: FC = () => {
   return (

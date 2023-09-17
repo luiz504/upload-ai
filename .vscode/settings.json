@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["tailwindcss"]
+  "cSpell.words": [
+    "dtos",
+    "fastify",
+    "lucide",
+    "nextjs",
+    "openai",
+    "tailwindcss",
+    "Turborepo"
+  ]
 }

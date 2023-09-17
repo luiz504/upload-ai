@@ -14,12 +14,18 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
+    "@types/node": "^20.6.1",
     "eslint": "^8.48.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
     "tsconfig": "*",
-    "turbo": "latest"
+    "turbo": "latest",
+    "typescript": "^5.2.2"
   },
-  "packageManager": "npm@9.7.1"
+  "packageManager": "npm@9.7.1",
+  "dependencies": {
+    "@fastify/multipart": "^7.7.3",
+    "ai": "^2.2.12"
+  }
 }
